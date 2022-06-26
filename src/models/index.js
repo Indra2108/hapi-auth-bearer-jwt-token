@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../dbconfig")
 
-const user = sequelize.define('user', {
+const User = sequelize.define('User', {
     username: {
         type: DataTypes.STRING,
         allowNull: false
@@ -14,4 +14,4 @@ const user = sequelize.define('user', {
     freezeTableName: true
 })
 
-module.exports = user
+module.exports = User
