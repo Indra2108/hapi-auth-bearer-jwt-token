@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
+    "bcrypt": "^5.0.1",
     "hapi-auth-bearer-token": "^8.0.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.1"
