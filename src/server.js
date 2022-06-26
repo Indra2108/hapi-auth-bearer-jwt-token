@@ -1,11 +1,10 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi')
-const jwt = require('jsonwebtoken')
 
-const User = require('./models')
 const plugins = require('./plugins')
 const routes = require('./routes')
+const validate = require('./validation')
 
 const init = async () => {
 
@@ -16,19 +15,7 @@ const init = async () => {
 
     await server.register(plugins)
 
-    server.auth.strategy('simple', 'bearer-access-token', {
-        validate: async (request, token, h) => {
-            const decoded = jwt.verify(token, 'rahasia')
-
-            const userjwt = await User.findByPk(decoded.id)
-
-            if (!userjwt) {
-                return { isValid: false, credentials: null }
-            }
-
-            return { isValid: true, credentials: { id: userjwt.id } }
-        }
-    })
+    server.auth.strategy('simple', 'bearer-access-token', { validate })
     server.auth.default('simple')
 
     server.route(routes)
